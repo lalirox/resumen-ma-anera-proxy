@@ -10,31 +10,29 @@ export default async function handler(req, res) {
 
     const html = await response.text();
 
-    // Extraer los últimos resúmenes usando regex
-    const regex = /<h2 class="titulo">([^<]+)<\/h2>[\s\S]*?<p>([\s\S]*?)<\/p>/g;
+    // Regex más flexible: busca cualquier <h2> seguido de <p>
+    const regex = /<h2[^>]*>([^<]+)<\/h2>[\s\S]*?<p[^>]*>([\s\S]*?)<\/p>/g;
     let matches = [];
     let match;
 
     while ((match = regex.exec(html)) !== null) {
       const titulo = match[1].trim();
-      // Eliminar cualquier etiqueta HTML restante en la descripción
       const descripcion = match[2]
-        .replace(/<[^>]*>/g, '') // quita todas las etiquetas HTML
-        .replace(/\s+/g, ' ')    // normaliza espacios
+        .replace(/<[^>]*>/g, '') // quitar etiquetas HTML
+        .replace(/\s+/g, ' ')    // normalizar espacios
         .trim();
 
       if (titulo && descripcion) {
         matches.push(`*${titulo}*\n${descripcion}`);
       }
 
-      if (matches.length >= 3) break; // Solo los 3 más recientes
+      if (matches.length >= 3) break; // solo los 3 más recientes
     }
 
     const resumen = matches.length 
-      ? matches.join('\n\n')
+      ? matches.join('\n\n') 
       : 'Sin resumen disponible';
 
-    // Configurar cabeceras y responder con JSON
     res.setHeader('Content-Type', 'application/json');
     res.status(200).json({ resumen });
 
