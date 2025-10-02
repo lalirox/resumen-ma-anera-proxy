@@ -1,5 +1,5 @@
 {
-  "name": "resumen-mañanera-proxy",
+  "name": "resumen-ma-anera-proxy",
   "version": "1.0.0",
   "engines": {
     "node": "20.x"
@@ -9,3 +9,4 @@
     // No necesitas "build" para una API simple
   }
 }
+
