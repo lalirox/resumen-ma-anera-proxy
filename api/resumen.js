@@ -10,7 +10,7 @@ export default async function handler(req, res) {
 
     const html = await response.text();
 
-    // Regex más flexible: busca cualquier <h2> seguido de <p>
+    // Regex más flexible: busca cualquier <h2> seguido de un <p>
     const regex = /<h2[^>]*>([^<]+)<\/h2>[\s\S]*?<p[^>]*>([\s\S]*?)<\/p>/g;
     let matches = [];
     let match;
@@ -18,15 +18,15 @@ export default async function handler(req, res) {
     while ((match = regex.exec(html)) !== null) {
       const titulo = match[1].trim();
       const descripcion = match[2]
-        .replace(/<[^>]*>/g, '') // quitar etiquetas HTML
-        .replace(/\s+/g, ' ')    // normalizar espacios
+        .replace(/<[^>]*>/g, '') // Elimina todas las etiquetas HTML
+        .replace(/\s+/g, ' ')    // Normaliza espacios múltiples a uno solo
         .trim();
 
       if (titulo && descripcion) {
         matches.push(`*${titulo}*\n${descripcion}`);
       }
 
-      if (matches.length >= 3) break; // solo los 3 más recientes
+      if (matches.length >= 3) break; // Solo los 3 más recientes
     }
 
     const resumen = matches.length 
