@@ -6,7 +6,5 @@
   },
   "scripts": {
     "dev": "vercel dev"
-    // No necesitas "build" para una API simple
   }
 }
-
