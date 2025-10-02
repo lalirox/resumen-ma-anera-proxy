@@ -5,7 +5,7 @@
     "node": "20.x"
   },
   "scripts": {
-    "dev": "vercel dev",
-    "build": "vercel build"
+    "dev": "vercel dev"
+    // No necesitas "build" para una API simple
   }
 }
