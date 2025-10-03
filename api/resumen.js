@@ -10,8 +10,8 @@ export default async function handler(req, res) {
 
     const html = await response.text();
 
-    // Regex más flexible: busca cualquier <h2> o <h3> seguido de un <div>
-    const regex = /<h[23][^>]*>([^<]+)<\/h[23]>[\s\S]*?<div[^>]*class[^>]*["'][^"']*content[^"']*["'][^>]*>([\s\S]*?)<\/div>/g;
+    // Regex simple: busca cualquier <h2> o <h3> seguido de un <div>
+    const regex = /<h[23][^>]*>([^<]+)<\/h[23]>[\s\S]*?<div[^>]*>([\s\S]*?)<\/div>/g;
     let matches = [];
     let match;
 
